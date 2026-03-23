@@ -51,36 +51,77 @@ const projectsData = [
 const Projects = () => {
   return (
     <section id="projects" style={{ padding: '6rem 2rem', maxWidth: '1000px', margin: '0 auto' }}>
-      <motion.h2 
+      <motion.h2
+        className="section-title"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '3rem', textAlign: 'center' }}
       >
         Featured <span className="text-gradient">Projects</span>
       </motion.h2>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: '1.5rem'
+      }}>
         {projectsData.map((project, idx) => (
           <motion.div
             key={idx}
             className="glass-panel"
-            style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}
+            style={{
+              padding: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1rem'
+            }}
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: (idx % 2) * 0.1 }}
-            whileHover={{ y: -5, boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}
+            whileHover={{ y: -5 }}
           >
-            <h3 style={{ fontSize: '1.5rem', color: 'var(--text-primary)', margin: 0 }}>{project.title}</h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', margin: '0.5rem 0 1rem', lineHeight: 1.6, flexGrow: 1 }}>{project.description}</p>
-            
-            <h4 style={{ color: 'var(--accent)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>Key Contributions</h4>
-            <ul style={{ color: 'var(--text-secondary)', paddingLeft: '1.2rem', lineHeight: 1.6, margin: 0, fontSize: '0.9rem' }}>
-              {project.contributions.map((point, i) => (
-                <li key={i} style={{ marginBottom: '0.3rem', listStyleType: 'square' }}>{point}</li>
-              ))}
-            </ul>
+            <h3 style={{
+              fontSize: '1.4rem',
+              color: 'var(--text-primary)',
+              margin: 0,
+              fontWeight: 700
+            }}>
+              {project.title}
+            </h3>
+            <p style={{
+              color: 'var(--text-secondary)',
+              fontSize: '0.95rem',
+              margin: 0,
+              lineHeight: 1.7,
+              flexGrow: 1
+            }}>
+              {project.description}
+            </p>
+
+            <div>
+              <h4 style={{
+                color: 'var(--accent)',
+                fontSize: '0.85rem',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                marginBottom: '0.6rem',
+                fontWeight: 700
+              }}>
+                Key Contributions
+              </h4>
+              <ul style={{
+                color: 'var(--text-secondary)',
+                paddingLeft: '1.2rem',
+                lineHeight: 1.7,
+                margin: 0,
+                fontSize: '0.9rem'
+              }}>
+                {project.contributions.map((point, i) => (
+                  <li key={i} style={{ marginBottom: '0.3rem' }}>{point}</li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
         ))}
       </div>

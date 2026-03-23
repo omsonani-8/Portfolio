@@ -1,27 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   /* Default Dark Mode Theme */
-  --bg-color: #0f172a; /* Slate 900 */
-  --text-primary: #f8fafc; /* Slate 50 */
-  --text-secondary: #94a3b8; /* Slate 400 */
-  --accent: #3b82f6; /* Blue 500 */
+  --bg-color: #0f172a;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #3b82f6;
+  --accent-light: #60a5fa;
   --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-hover: rgba(255, 255, 255, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.1);
+  --tag-bg: rgba(255, 255, 255, 0.08);
+  --tag-border: rgba(255, 255, 255, 0.12);
+  --divider: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --card-hover-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  --btn-ghost-bg: rgba(255, 255, 255, 0.06);
+  --btn-ghost-hover: rgba(59, 130, 246, 0.2);
+  --nav-bg: rgba(15, 23, 42, 0.8);
+  --badge-bg: rgba(59, 130, 246, 0.15);
+  --badge-text: #60a5fa;
 }
 
 :root[data-theme='light'] {
-  /* Light Mode Theme */
-  --bg-color: #f8fafc; /* Slate 50 */
-  --text-primary: #0f172a; /* Slate 900 */
-  --text-secondary: #475569; /* Slate 600 */
-  --accent: #2563eb; /* Blue 600 */
+  --bg-color: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent: #2563eb;
+  --accent-light: #3b82f6;
   --accent-gradient: linear-gradient(135deg, #2563eb, #7c3aed, #db2777);
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.1);
-  --glass-hover: rgba(255, 255, 255, 0.9);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.85);
+  --tag-bg: rgba(37, 99, 235, 0.08);
+  --tag-border: rgba(37, 99, 235, 0.15);
+  --divider: rgba(0, 0, 0, 0.08);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --card-hover-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  --btn-ghost-bg: rgba(37, 99, 235, 0.06);
+  --btn-ghost-hover: rgba(37, 99, 235, 0.15);
+  --nav-bg: rgba(248, 250, 252, 0.85);
+  --badge-bg: rgba(37, 99, 235, 0.1);
+  --badge-text: #2563eb;
 }
 
 * {
@@ -30,13 +51,17 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-primary);
   overflow-x: hidden;
   line-height: 1.6;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 a {
@@ -44,19 +69,23 @@ a {
   text-decoration: none;
 }
 
+/* Glass Panel */
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--card-shadow);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .glass-panel:hover {
   background: var(--glass-hover);
+  box-shadow: var(--card-hover-shadow);
 }
 
+/* Text Gradient */
 .text-gradient {
   background: var(--accent-gradient);
   -webkit-background-clip: text;
@@ -64,17 +93,244 @@ a {
   background-clip: text;
 }
 
+/* Section Title Styling */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+/* Skill / Tech Tags */
+.tech-tag {
+  background: var(--tag-bg);
+  border: 1px solid var(--tag-border);
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.tech-tag:hover {
+  background: var(--btn-ghost-hover);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Date / Status Badge */
+.status-badge {
+  font-size: 0.9rem;
+  padding: 0.3rem 1rem;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* Contact Pills */
+.contact-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--btn-ghost-bg);
+  border: 1px solid var(--glass-border);
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.contact-pill:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Section Divider */
+.section-divider {
+  border: none;
+  height: 1px;
+  background: var(--divider);
+  margin: 0;
+}
+
+/* Navbar Links */
+.nav-link {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-gradient);
+  border-radius: 1px;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: var(--btn-ghost-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 1.15rem;
+  padding: 0.5rem 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--btn-ghost-hover);
+  border-color: var(--accent);
+  transform: rotate(20deg) scale(1.1);
+}
+
+/* CTA Buttons */
+.cta-primary {
+  padding: 0.85rem 2.2rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.35);
+}
+
+.cta-secondary {
+  padding: 0.85rem 2.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--btn-ghost-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease, border-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cta-secondary:hover {
+  transform: translateY(-2px);
+  background: var(--btn-ghost-hover);
+  border-color: var(--accent);
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--text-primary);
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  margin: 5px 0;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+    z-index: 60;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 5rem 2rem 2rem;
+    gap: 1.5rem;
+    transition: right 0.35s ease;
+    z-index: 55;
+    border-left: 1px solid var(--glass-border);
+  }
+
+  .nav-links.open {
+    right: 0;
+  }
+
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-color);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--text-secondary);
-  border-radius: 5px;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+/* Selection Color */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: var(--text-primary);
 }
