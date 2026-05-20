@@ -803,3 +803,13 @@ a {
     padding: 4rem 1.5rem 2rem;
   }
 }
+
+/* Hero underline animation */
+@keyframes lineGrow {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}

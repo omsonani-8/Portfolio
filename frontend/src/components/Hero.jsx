@@ -62,12 +62,16 @@ const Hero = () => {
             }}>
               Om Sonani
             </p>
-            {/* Bottom line animation */}
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: '120px' }}
-              transition={{ duration: 1.2, delay: 0.8, ease: 'easeOut' }}
-              style={{ height: '2px', background: 'var(--accent)', marginTop: '0.5rem' }}
+            {/* Bottom line animation - left to right via CSS */}
+            <div
+              style={{
+                height: '3px',
+                background: 'var(--accent)',
+                marginTop: '0.5rem',
+                width: '60%',
+                animation: 'lineGrow 1.2s ease-out 3s both',
+                transformOrigin: 'left center',
+              }}
             />
           </motion.div>
   
@@ -94,8 +98,7 @@ const Hero = () => {
             />
           </motion.div>
   
-          <motion.div>
-          </motion.div>
+
         </div>
 
         {/* Right Side */}
@@ -106,9 +109,9 @@ const Hero = () => {
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, maxWidth: '400px' }}>
             I am a Motivated Full Stack Web Developer based in Ahmedabad, passionate about building digital products, brands, and experiences with a focus on modern web applications.
           </p>
-          <a href="/resume.pdf" download className="cta-resume" style={{ width: 'fit-content' }}>
+          <a href="/resume.pdf" download className="cta-resume" style={{ width: 'fit-content', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
             Download Resume
-            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           </a>
         </motion.div>
       </motion.div>
