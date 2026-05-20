@@ -7,14 +7,24 @@ import Experience from '../components/Experience';
 import Projects from '../components/Projects';
 import Education from '../components/Education';
 import Contact from '../components/Contact';
-import AnimatedBackground from '../components/AnimatedBackground';
+import Footer from '../components/Footer';
+import IntroScreen from '../components/IntroScreen';
 
 const Home = () => {
   const [theme, setTheme] = useState('dark');
+  const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    // Hide intro screen after 2 seconds
+    const timer = setTimeout(() => {
+      setShowIntro(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -29,18 +39,21 @@ const Home = () => {
         <meta name="author" content="Om Sonani" />
       </Helmet>
 
-      <AnimatedBackground theme={theme} />
+      <IntroScreen show={showIntro} />
 
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column' }}>
-        <Navbar theme={theme} toggleTheme={toggleTheme} />
-        <main>
-          <Hero />
-          <Skills />
-          <Experience />
-          <Projects />
-          <Education />
-          <Contact />
-        </main>
+      <div className="app-container">
+        <div style={{ flex: 1, position: 'relative', zIndex: 1, paddingTop: '80px' }}>
+          <Navbar theme={theme} toggleTheme={toggleTheme} />
+          <main>
+            <Hero />
+            <Skills />
+            <Experience />
+            <Projects />
+            <Education />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
       </div>
     </>
   );

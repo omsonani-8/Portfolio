@@ -1,48 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap');
 
 :root {
-  /* Default Dark Mode Theme */
-  --bg-color: #0f172a;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --accent: #3b82f6;
-  --accent-light: #60a5fa;
-  --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-hover: rgba(255, 255, 255, 0.1);
-  --tag-bg: rgba(255, 255, 255, 0.08);
-  --tag-border: rgba(255, 255, 255, 0.12);
-  --divider: rgba(255, 255, 255, 0.08);
-  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --card-hover-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-  --btn-ghost-bg: rgba(255, 255, 255, 0.06);
-  --btn-ghost-hover: rgba(59, 130, 246, 0.2);
-  --nav-bg: rgba(15, 23, 42, 0.8);
-  --badge-bg: rgba(59, 130, 246, 0.15);
-  --badge-text: #60a5fa;
+  /* Default: Dark Theme */
+  --bg-color: #111111;
+  --bg-secondary: #0a0a0a;
+  --text-primary: #ffffff;
+  --text-secondary: #aaaaaa;
+  --accent: #00ffff;
+  --accent-muted: rgba(0, 255, 255, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.06);
+  --divider: rgba(255, 255, 255, 0.1);
+  --nav-bg: rgba(17, 17, 17, 0.8);
+  
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  --card-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  --section-padding: 10rem 2rem;
+  --container-max: 1200px;
 }
 
-:root[data-theme='light'] {
+[data-theme='light'] {
   --bg-color: #f8fafc;
+  --bg-secondary: #ffffff;
   --text-primary: #0f172a;
-  --text-secondary: #475569;
+  --text-secondary: #64748b;
   --accent: #2563eb;
-  --accent-light: #3b82f6;
-  --accent-gradient: linear-gradient(135deg, #2563eb, #7c3aed, #db2777);
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-hover: rgba(255, 255, 255, 0.85);
-  --tag-bg: rgba(37, 99, 235, 0.08);
-  --tag-border: rgba(37, 99, 235, 0.15);
-  --divider: rgba(0, 0, 0, 0.08);
-  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --card-hover-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-  --btn-ghost-bg: rgba(37, 99, 235, 0.06);
-  --btn-ghost-hover: rgba(37, 99, 235, 0.15);
-  --nav-bg: rgba(248, 250, 252, 0.85);
-  --badge-bg: rgba(37, 99, 235, 0.1);
-  --badge-text: #2563eb;
+  --accent-muted: rgba(37, 99, 235, 0.2);
+  --glass-bg: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --glass-hover: rgba(0, 0, 0, 0.04);
+  --divider: rgba(0, 0, 0, 0.1);
+  --nav-bg: rgba(248, 250, 252, 0.8);
 }
 
 * {
@@ -51,17 +42,82 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   background-color: var(--bg-color);
   color: var(--text-primary);
   overflow-x: hidden;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
   transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Sidebar Layout */
+.app-container {
+  display: block;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  right: 0;
+  left: auto;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  border-left: 1px solid var(--divider);
+  z-index: 100;
+  background: var(--bg-color);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: center;
+}
+
+.sidebar-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+
+.sidebar-link:hover {
+  color: var(--text-primary);
+}
+
+.sidebar-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-social-icon {
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.sidebar-social-icon:hover {
+  color: var(--accent);
 }
 
 a {

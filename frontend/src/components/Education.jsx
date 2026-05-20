@@ -3,122 +3,76 @@ import { motion } from 'framer-motion';
 
 const Education = () => {
   return (
-    <section id="education" style={{ padding: '6rem 2rem', maxWidth: '1000px', margin: '0 auto' }}>
-      <motion.h2
-        className="section-title"
-        initial={{ opacity: 0, y: 20 }}
+    <section id="education" style={{
+      padding: 'var(--section-padding)',
+      maxWidth: '1200px',
+      margin: '0 auto',
+    }}>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        style={{ marginBottom: '6rem' }}
       >
-        Education & <span className="text-gradient">Certificates</span>
-      </motion.h2>
+        <p style={{
+          fontSize: '0.9rem',
+          color: 'var(--accent)',
+          fontWeight: 600,
+          letterSpacing: '5px',
+          textTransform: 'uppercase',
+          marginBottom: '1rem',
+        }}>
+          Learning
+        </p>
+        <h2 style={{
+          fontFamily: 'var(--font-heading)',
+          fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+          fontWeight: 700,
+          color: 'var(--text-primary)',
+          letterSpacing: '-0.02em',
+        }}>
+          Education
+        </h2>
+      </motion.div>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '1.5rem'
-      }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
         <motion.div
-          className="glass-panel"
-          style={{ padding: '2rem' }}
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          style={{
+            paddingTop: '3rem',
+            borderTop: '1px solid var(--divider)',
+            display: 'grid',
+            gridTemplateColumns: 'minmax(200px, 300px) 1fr',
+            gap: '4rem',
+          }}
         >
-          <h3 style={{
-            fontSize: '1.2rem',
-            color: 'var(--accent)',
-            marginBottom: '1.5rem',
-            borderBottom: '1px solid var(--divider)',
-            paddingBottom: '0.5rem',
-            fontWeight: 700
-          }}>
-            🎓 Academics
-          </h3>
-
-          <div style={{ marginBottom: '1.5rem' }}>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: 700, margin: '0 0 0.2rem 0' }}>
+          <span style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', fontWeight: 600 }}>2021 – 2025</span>
+          <div>
+            <h3 style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: '2rem',
+              fontWeight: 600,
+              marginBottom: '1rem',
+              color: 'var(--text-primary)'
+            }}>
               BE in Computer Engineering
-            </h4>
-            <p style={{ margin: 0, color: 'var(--text-secondary)' }}>
+            </h3>
+            <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
               Government Engineering College, Bhavnagar
             </p>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginTop: '0.5rem',
-              fontSize: '0.9rem'
-            }}>
-              <span className="status-badge" style={{ padding: '0.2rem 0.8rem', fontSize: '0.85rem' }}>
-                CGPA: 8.43
-              </span>
-              <span style={{ color: 'var(--text-secondary)' }}>Sep 2021 – May 2025</span>
-            </div>
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: '1.1rem', fontWeight: 700, margin: '0 0 0.2rem 0' }}>HSC</h4>
-            <p style={{ margin: 0, color: 'var(--text-secondary)' }}>
-              Vidyadhish Vidyasankul, Bhavnagar
-            </p>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginTop: '0.5rem',
-              fontSize: '0.9rem'
-            }}>
-              <span className="status-badge" style={{ padding: '0.2rem 0.8rem', fontSize: '0.85rem' }}>
-                85.8%
-              </span>
-              <span style={{ color: 'var(--text-secondary)' }}>Jun 2020 – Jun 2021</span>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="glass-panel"
-          style={{ padding: '2rem' }}
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-        >
-          <h3 style={{
-            fontSize: '1.2rem',
-            color: 'var(--accent)',
-            marginBottom: '1.5rem',
-            borderBottom: '1px solid var(--divider)',
-            paddingBottom: '0.5rem',
-            fontWeight: 700
-          }}>
-            📜 Certifications
-          </h3>
-
-          <div>
-            <h4 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '0 0 0.5rem 0' }}>
-              Full Stack Web Development with MERN Stack
-            </h4>
-            <p style={{
-              margin: '0 0 1rem 0',
-              color: 'var(--accent)',
+            <span style={{
               fontSize: '0.9rem',
-              fontWeight: 600
+              color: 'var(--accent)',
+              fontWeight: 600,
+              padding: '6px 16px',
+              border: '1px solid var(--accent-muted)',
             }}>
-              Udemy
-            </p>
-            <ul style={{
-              color: 'var(--text-secondary)',
-              paddingLeft: '1.2rem',
-              lineHeight: 1.6,
-              margin: 0,
-              fontSize: '0.95rem'
-            }}>
-              <li style={{ marginBottom: '0.4rem' }}>
-                Gained comprehensive knowledge in MongoDB, Express.js, React.js, and Node.js.
-              </li>
-              <li style={{ marginBottom: '0.4rem' }}>
-                Developed dynamic applications from scratch, handling database schema, server-side logic, and responsive UIs.
-              </li>
-            </ul>
+              CGPA: 8.43
+            </span>
           </div>
         </motion.div>
       </div>

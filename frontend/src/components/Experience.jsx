@@ -1,78 +1,101 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+const experienceData = [
+  {
+    company: 'eSparkBiz Technologies',
+    role: 'Junior Software Developer',
+    period: '2025 - Present',
+    description: 'Contributing to production systems handling scheduling, error resolution, and API optimization. Leveraging AI agents to accelerate development workflows.',
+  },
+  {
+    company: 'The Khmer Home',
+    role: 'Full-Stack Developer (Offsite)',
+    period: '2024 - 2025',
+    description: 'Built backend services and media modules for a real estate platform using Node.js and PostgreSQL.',
+  },
+];
+
 const Experience = () => {
   return (
-    <section id="experience" style={{ padding: '6rem 2rem', maxWidth: '800px', margin: '0 auto' }}>
-      <motion.h2
-        className="section-title"
-        initial={{ opacity: 0, y: 20 }}
+    <section id="experience" style={{
+      padding: 'var(--section-padding)',
+      maxWidth: '1200px',
+      margin: '0 auto',
+    }}>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        style={{ marginBottom: '6rem' }}
       >
-        Professional <span className="text-gradient">Experience</span>
-      </motion.h2>
-
-      <motion.div
-        className="glass-panel"
-        style={{ padding: '2.5rem', position: 'relative', overflow: 'hidden' }}
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '4px',
-          height: '100%',
-          background: 'var(--accent-gradient)'
-        }} />
-
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          flexWrap: 'wrap',
-          gap: '1rem',
-          marginBottom: '1.5rem'
+        <p style={{
+          fontSize: '0.9rem',
+          color: 'var(--accent)',
+          fontWeight: 600,
+          letterSpacing: '5px',
+          textTransform: 'uppercase',
+          marginBottom: '1rem',
         }}>
-          <div>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 700, margin: 0 }}>
-              Junior Software Developer
-            </h3>
-            <h4 style={{
-              fontSize: '1.1rem',
-              color: 'var(--accent)',
-              margin: '0.3rem 0 0 0',
-              fontWeight: 600
-            }}>
-              eSparkBiz Technologies
-            </h4>
-          </div>
-          <span className="status-badge">
-            Jan 2025 – Present
-          </span>
-        </div>
-
-        <ul style={{
-          color: 'var(--text-secondary)',
-          paddingLeft: '1.2rem',
-          lineHeight: 1.8,
-          margin: 0
+          02. Journey
+        </p>
+        <h2 style={{
+          fontFamily: 'var(--font-heading)',
+          fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+          fontWeight: 700,
+          color: 'var(--text-primary)',
+          letterSpacing: '-0.02em',
         }}>
-          <li style={{ marginBottom: '0.8rem' }}>
-            Contributed to production systems handling scheduling, error resolution, race conditions, and API rate limiting.
-          </li>
-          <li style={{ marginBottom: '0.8rem' }}>
-            Enhanced performance through Redis caching and optimized database structures using Sequelize ORM.
-          </li>
-          <li>
-            Leveraged AI tools like Cursor, Claude Code, and Antigravity to build agent workflows, accelerating dev efficiency.
-          </li>
-        </ul>
+          Experience
+        </h2>
       </motion.div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6rem' }}>
+        {experienceData.map((exp, idx) => (
+          <motion.div
+            key={exp.company}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'minmax(200px, 300px) 1fr',
+              gap: '4rem',
+              alignItems: 'start',
+            }}
+          >
+            <div>
+              <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', fontWeight: 600, marginBottom: '0.5rem' }}>
+                {exp.period}
+              </p>
+              <h3 style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '2rem',
+                fontWeight: 600,
+                color: 'var(--text-primary)',
+                letterSpacing: '-0.01em'
+              }}>
+                {exp.company}
+              </h3>
+            </div>
+            <div style={{ borderLeft: '1px solid var(--divider)', paddingLeft: '4rem' }}>
+              <h4 style={{ 
+                fontSize: '1.4rem', 
+                fontWeight: 500, 
+                marginBottom: '1.5rem', 
+                color: 'var(--accent)',
+              }}>
+                {exp.role}
+              </h4>
+              <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: 1.8, maxWidth: '800px' }}>
+                {exp.description}
+              </p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </section>
   );
 };

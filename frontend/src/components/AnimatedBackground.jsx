@@ -1,99 +1,80 @@
-import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { MeshDistortMaterial, Sphere, Float } from '@react-three/drei';
 
-const AnimatedBackground = ({ theme }) => {
-  
-  // Generate random stars once
-  const stars = useMemo(() => {
-    return Array.from({ length: 150 }).map(() => ({
-      x: Math.random() * 100, // vw
-      y: Math.random() * 100, // vh
-      size: Math.random() * 2 + 1, // px
-      duration: Math.random() * 3 + 2, // twinkle speed
-      delay: Math.random() * 2 // initial delay
-    }));
+const DisplacementSphere = ({ theme }) => {
+  const meshRef = useRef();
+  const mouse = useRef([0, 0]);
+
+  React.useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouse.current = [
+        (e.clientX / window.innerWidth) * 2 - 1,
+        -(e.clientY / window.innerHeight) * 2 + 1,
+      ];
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const isDark = theme === 'dark';
+  useFrame((state) => {
+    const { clock } = state;
+    if (meshRef.current) {
+      meshRef.current.rotation.x = clock.getElapsedTime() * 0.1;
+      meshRef.current.rotation.y = clock.getElapsedTime() * 0.15;
+      
+      // Move slightly towards mouse
+      meshRef.current.position.x += (mouse.current[0] * 0.5 - meshRef.current.position.x) * 0.05;
+      meshRef.current.position.y += (mouse.current[1] * 0.5 - meshRef.current.position.y) * 0.05;
+    }
+  });
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-      
-      {/* Starry Night Effect - Visible mostly in Dark Mode */}
-      {isDark && stars.map((star, i) => (
-        <motion.div
-           key={`star-${i}`}
-           style={{
-             position: 'absolute',
-             top: `${star.y}vh`, left: `${star.x}vw`,
-             width: `${star.size}px`, height: `${star.size}px`,
-             backgroundColor: '#fff',
-             borderRadius: '50%',
-             boxShadow: '0 0 5px #fff',
-           }}
-           animate={{
-             opacity: [0.2, 1, 0.2]
-           }}
-           transition={{
-             duration: star.duration,
-             repeat: Infinity,
-             ease: "easeInOut",
-             delay: star.delay
-           }}
+    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+      <Sphere ref={meshRef} args={[1, 100, 100]} scale={2.8}>
+        <MeshDistortMaterial
+          color={theme === 'dark' ? "#3b82f6" : "#2563eb"}
+          attach="material"
+          distort={0.4}
+          speed={1.5}
+          roughness={0.2}
+          metalness={0.9}
+          emissive={theme === 'dark' ? "#1d4ed8" : "#3b82f6"}
+          emissiveIntensity={0.2}
         />
-      ))}
+      </Sphere>
+    </Float>
+  );
+};
 
-      {/* Clouds / Soft Orbs for Light Mode / General Aesthetic */}
-      <motion.div
-        animate={{
-          x: [0, 100, -100, 0],
-          y: [0, 100, -50, 0],
-          scale: [1, 1.2, 0.8, 1],
-        }}
-        transition={{
-          duration: 25,
-          ease: "linear",
-          repeat: Infinity,
-        }}
-        style={{
-          position: 'absolute',
-          top: '-10%', left: '-10%',
-          width: '50vw', height: '50vw',
-          background: isDark ? 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(15,23,42,0) 70%)' : 'radial-gradient(circle, rgba(147,197,253,0.4) 0%, rgba(248,250,252,0) 70%)',
-          borderRadius: '50%',
-          filter: 'blur(60px)'
-        }}
-      />
-
-      <motion.div
-        animate={{
-          x: [0, -150, 100, 0],
-          y: [0, -100, 150, 0],
-          scale: [1, 0.9, 1.1, 1],
-        }}
-        transition={{
-          duration: 30,
-          ease: "linear",
-          repeat: Infinity,
-        }}
-        style={{
-          position: 'absolute',
-          bottom: '-10%', right: '-10%',
-          width: '60vw', height: '60vw',
-          background: isDark ? 'radial-gradient(circle, rgba(236,72,153,0.1) 0%, rgba(15,23,42,0) 70%)' : 'radial-gradient(circle, rgba(244,114,182,0.3) 0%, rgba(248,250,252,0) 70%)',
-          borderRadius: '50%',
-          filter: 'blur(80px)'
-        }}
-      />
-      
-      {/* Grid Overlay for texture */}
+const AnimatedBackground = ({ theme = 'dark' }) => {
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      zIndex: 0,
+      background: 'var(--bg-color)',
+      pointerEvents: 'none',
+      transition: 'background 0.5s ease'
+    }}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 75 }} dpr={[1, 2]}>
+        <ambientLight intensity={theme === 'dark' ? 0.4 : 0.6} />
+        <pointLight position={[10, 10, 10]} intensity={1.5} />
+        <pointLight position={[-10, -10, -10]} color={theme === 'dark' ? "#3b82f6" : "#2563eb"} intensity={1.5} />
+        <DisplacementSphere theme={theme} />
+      </Canvas>
       <div style={{
         position: 'absolute',
-        top: 0, left: 0, right: 0, bottom: 0,
-        backgroundImage: isDark ? 'linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)' : 'linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)',
-        backgroundSize: '50px 50px',
-        maskImage: 'radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%)',
-        WebkitMaskImage: 'radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%)'
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'radial-gradient(circle at center, transparent 0%, var(--bg-color) 85%)',
+        pointerEvents: 'none',
+        transition: 'background 0.5s ease'
       }} />
     </div>
   );
