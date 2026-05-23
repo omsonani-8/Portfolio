@@ -29,6 +29,14 @@ const experiences = [
 ];
 
 const Experience = () => {
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section id="experience" style={{
       padding: 'var(--section-padding)',
@@ -101,19 +109,19 @@ const Experience = () => {
               </span>
             </div>
 
-            <div style={{ padding: '4rem' }}>
+            <div style={{ padding: isMobile ? '1.5rem' : '4rem' }}>
               <div style={{
                 display: 'flex',
-                flexWrap: 'wrap',
+                flexDirection: isMobile ? 'column' : 'row',
                 justifyContent: 'space-between',
-                alignItems: 'baseline',
-                gap: '2rem',
-                marginBottom: '3rem'
+                alignItems: isMobile ? 'flex-start' : 'baseline',
+                gap: isMobile ? '1rem' : '2rem',
+                marginBottom: isMobile ? '2rem' : '3rem'
               }}>
                 <div>
                   <h3 style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                    fontSize: isMobile ? '1.5rem' : 'clamp(1.5rem, 3vw, 2.5rem)',
                     color: 'var(--text-primary)',
                     fontWeight: 700,
                     marginBottom: '0.5rem'
@@ -121,7 +129,7 @@ const Experience = () => {
                     {exp.position}
                   </h3>
                   <p style={{
-                    fontSize: '1.25rem',
+                    fontSize: isMobile ? '1rem' : '1.25rem',
                     color: 'var(--text-muted)',
                     fontWeight: 500,
                     fontFamily: 'monospace'
@@ -131,7 +139,7 @@ const Experience = () => {
                 </div>
                 <span style={{
                   color: 'var(--text-secondary)',
-                  fontSize: '0.9rem',
+                  fontSize: isMobile ? '0.8rem' : '0.9rem',
                   fontFamily: 'monospace',
                   fontWeight: 600,
                   padding: '0.5rem 1rem',
@@ -143,9 +151,9 @@ const Experience = () => {
               </div>
 
               <p style={{
-                fontSize: '1.2rem',
+                fontSize: isMobile ? '1rem' : '1.2rem',
                 color: 'var(--text-secondary)',
-                marginBottom: '2.5rem',
+                marginBottom: isMobile ? '2rem' : '2.5rem',
                 lineHeight: 1.6,
                 maxWidth: '800px',
                 fontStyle: 'italic'
@@ -159,7 +167,7 @@ const Experience = () => {
                 margin: 0,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '1.5rem'
+                gap: isMobile ? '1rem' : '1.5rem'
               }}>
                 {exp.details.map((detail, dIdx) => (
                   <motion.li
@@ -169,15 +177,15 @@ const Experience = () => {
                     transition={{ delay: (idx * 0.2) + (dIdx * 0.1), duration: 0.5 }}
                     style={{
                       display: 'flex',
-                      gap: '1.5rem',
-                      fontSize: '1.1rem',
+                      gap: isMobile ? '0.75rem' : '1.5rem',
+                      fontSize: isMobile ? '0.9rem' : '1.1rem',
                       color: 'var(--text-secondary)',
                       lineHeight: 1.5,
                       alignItems: 'flex-start'
                     }}
                   >
                     <span style={{
-                      marginTop: '0.6rem',
+                      marginTop: '0.5rem',
                       width: '6px',
                       height: '6px',
                       background: '#fff',

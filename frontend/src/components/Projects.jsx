@@ -35,6 +35,14 @@ const projectsData = [
 ];
 
 const Projects = () => {
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section id="projects" style={{
       padding: 'var(--section-padding)',
@@ -46,7 +54,7 @@ const Projects = () => {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        style={{ marginBottom: '8rem' }}
+        style={{ marginBottom: isMobile ? '4rem' : '8rem' }}
       >
         <span style={{
           fontSize: '0.8rem',
@@ -73,8 +81,8 @@ const Projects = () => {
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-        gap: '6rem',
+        gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(400px, 1fr))',
+        gap: isMobile ? '3rem' : '6rem',
       }}>
         {projectsData.map((project, idx) => (
           <motion.div
@@ -111,15 +119,21 @@ const Projects = () => {
               </span>
             </div>
 
-            <div style={{ padding: '3rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '2rem' }}>
+            <div style={{ padding: isMobile ? '1.5rem' : '3rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column-reverse' : 'row',
+                justifyContent: 'space-between', 
+                alignItems: isMobile ? 'flex-start' : 'flex-start', 
+                gap: '1.5rem' 
+              }}>
                 <div style={{ flex: 1 }}>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontFamily: 'monospace', display: 'block', marginBottom: '0.5rem' }}>
                     [{project.timeline}]
                   </span>
                   <h3 style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(1.2rem, 2.5vw, 2.2rem)',
+                    fontSize: isMobile ? '1.5rem' : 'clamp(1.2rem, 2.5vw, 2.2rem)',
                     fontWeight: 800,
                     marginBottom: '1.2rem',
                     color: 'var(--text-primary)',
@@ -128,7 +142,7 @@ const Projects = () => {
                     {project.title}
                   </h3>
                   <p style={{ 
-                    fontSize: '1rem', 
+                    fontSize: isMobile ? '0.9rem' : '1rem', 
                     color: 'var(--text-secondary)', 
                     lineHeight: 1.6,
                   }}>
@@ -136,7 +150,7 @@ const Projects = () => {
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', gap: '1.5rem', paddingTop: '0.5rem' }}>
+                <div style={{ display: 'flex', gap: '1.5rem', paddingTop: isMobile ? '0' : '0.5rem' }}>
                   {project.github && (
                     <a 
                       href={project.github} 
@@ -166,15 +180,15 @@ const Projects = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginTop: 'auto' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginTop: 'auto' }}>
                 {project.stack.map((tech) => (
                   <span key={tech} style={{
-                    fontSize: '0.75rem',
+                    fontSize: '0.7rem',
                     color: 'var(--text-muted)',
                     fontFamily: 'monospace',
                     fontWeight: 700,
                     letterSpacing: '0.05rem',
-                    padding: '0.4rem 0.8rem',
+                    padding: '0.3rem 0.6rem',
                     background: 'var(--divider)',
                     borderRadius: '4px'
                   }}>

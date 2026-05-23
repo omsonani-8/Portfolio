@@ -12,16 +12,14 @@
   --accent-muted: rgba(255, 255, 255, 0.1);
   --divider: #70717155;
   --glass-bg: rgba(0, 0, 0, 0.85);
-  --glass-border: #70717188;
-  --section-padding: 10rem 2rem;
-  --nav-bg: rgba(0, 0, 0, 0.95);
-  
-  /* Typography */
-  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-heading: 'Outfit', sans-serif;
-  
-  --card-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  --section-padding: clamp(5rem, 15vw, 10rem) 1.5rem;
   --container-max: 1200px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 4rem 1.25rem;
+  }
 }
 
 [data-theme='light'] {

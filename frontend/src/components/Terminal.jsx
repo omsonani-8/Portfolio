@@ -9,14 +9,21 @@ const Terminal = () => {
     { type: 'output', content: '' }
   ]);
   const [currentDir, setCurrentDir] = useState('~');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [history]);
+  }, [history, isMobile]);
 
   const handleCommand = (cmd) => {
     const trimmedCmd = cmd.trim().toLowerCase();
@@ -139,7 +146,7 @@ const Terminal = () => {
         <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.4rem', textTransform: 'uppercase' }}>
           System Console
         </span>
-        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '1rem' }}>
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: isMobile ? '2rem' : 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 800, color: 'var(--text-primary)', marginTop: '1rem' }}>
           Terminal Access<span style={{ color: 'var(--text-muted)' }}>_</span>
         </h2>
       </motion.div>
@@ -177,9 +184,9 @@ const Terminal = () => {
         <div 
           ref={scrollRef}
           style={{
-            padding: '2rem',
+            padding: isMobile ? '1rem' : '2rem',
             fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace',
-            fontSize: '1rem',
+            fontSize: isMobile ? '0.85rem' : '1rem',
             lineHeight: 1.6,
             color: '#fff',
             overflowY: 'auto',
@@ -246,12 +253,12 @@ const Terminal = () => {
                     borderRadius: '8px',
                     padding: '1rem',
                     marginTop: '1rem',
-                    width: '320px',
+                    width: isMobile ? 'calc(100% - 2rem)' : '320px',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.8)',
                     zIndex: 100
                   }}
                 >
-                  <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '0.75rem', borderBottom: '1px solid #333', paddingBottom: '0.5rem', fontWeight: 700 }}>AVAILABLE COMMANDS [TAB TO FILL]</p>
+                  <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '0.75rem', borderBottom: '1px solid #333', paddingBottom: '0.5rem', fontWeight: 700 }}>AVAILABLE COMMANDS {isMobile ? '' : '[TAB TO FILL]'}</p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                     {filteredSuggestions.map(s => (
                       <li key={s.cmd} 

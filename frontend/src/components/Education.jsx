@@ -2,6 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const Education = () => {
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section id="education" style={{
       padding: 'var(--section-padding)',
@@ -13,7 +21,7 @@ const Education = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        style={{ marginBottom: '6rem' }}
+        style={{ marginBottom: isMobile ? '3rem' : '6rem' }}
       >
         <p style={{
           fontSize: '0.9rem',
@@ -70,9 +78,14 @@ const Education = () => {
             </span>
           </div>
 
-          <div style={{ padding: '4rem', display: 'grid', gridTemplateColumns: 'minmax(200px, 300px) 1fr', gap: '4rem' }}>
+          <div style={{ 
+            padding: isMobile ? '1.5rem' : '4rem', 
+            display: 'grid', 
+            gridTemplateColumns: isMobile ? '1fr' : 'minmax(200px, 300px) 1fr', 
+            gap: isMobile ? '1.5rem' : '4rem' 
+          }}>
             <span style={{ 
-              fontSize: '1rem', 
+              fontSize: isMobile ? '0.9rem' : '1rem', 
               color: 'var(--text-secondary)', 
               fontWeight: 600,
               fontFamily: 'monospace' 
@@ -82,7 +95,7 @@ const Education = () => {
             <div>
               <h3 style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: '2.5rem',
+                fontSize: isMobile ? '1.8rem' : '2.5rem',
                 fontWeight: 800,
                 marginBottom: '1rem',
                 color: 'var(--text-primary)',
@@ -90,7 +103,7 @@ const Education = () => {
               }}>
                 BE in Computer Engineering
               </h3>
-              <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '2rem', fontWeight: 500 }}>
+              <p style={{ fontSize: isMobile ? '1.1rem' : '1.25rem', color: 'var(--text-muted)', marginBottom: '2rem', fontWeight: 500 }}>
                 Government Engineering College, Bhavnagar
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
