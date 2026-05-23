@@ -33,6 +33,14 @@ const Navbar = ({ theme, toggleTheme }) => {
         <a href="#experience" className="nav-link">Journey</a>
         <a href="#skills" className="nav-link">Stack</a>
         <a href="#projects" className="nav-link">Projects</a>
+        <a href="#terminal" className="nav-link" style={{ 
+          fontFamily: 'monospace', 
+          fontSize: '0.8rem', 
+          color: 'var(--text-muted)',
+          border: '1px solid var(--divider)',
+          padding: '0.2rem 0.6rem',
+          borderRadius: '4px'
+        }}>&gt;_ TERMINAL</a>
         <a href="#contact" className="nav-link">Contact</a>
         
         <button

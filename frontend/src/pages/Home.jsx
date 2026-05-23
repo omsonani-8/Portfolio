@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Skills from '../components/Skills';
 import Experience from '../components/Experience';
 import Projects from '../components/Projects';
+import Terminal from '../components/Terminal';
 import Education from '../components/Education';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
@@ -19,10 +21,13 @@ const Home = () => {
   }, [theme]);
 
   useEffect(() => {
-    // Hide intro screen after 2 seconds
+    // Force scroll to top on refresh
+    window.scrollTo(0, 0);
+    
+    // Hide intro screen after 4 seconds
     const timer = setTimeout(() => {
       setShowIntro(false);
-    }, 2000);
+    }, 4000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -42,18 +47,24 @@ const Home = () => {
       <IntroScreen show={showIntro} />
 
       <div className="app-container">
-        <div style={{ flex: 1, position: 'relative', zIndex: 1, paddingTop: '80px' }}>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showIntro ? 0 : 1 }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          style={{ flex: 1, position: 'relative', zIndex: 1, paddingTop: '80px' }}
+        >
           <Navbar theme={theme} toggleTheme={toggleTheme} />
           <main>
             <Hero />
             <Skills />
             <Experience />
             <Projects />
+            <Terminal />
             <Education />
             <Contact />
           </main>
           <Footer />
-        </div>
+        </motion.div>
       </div>
     </>
   );
