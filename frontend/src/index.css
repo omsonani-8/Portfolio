@@ -623,7 +623,7 @@ a {
 .cta-resume:hover {
   transform: translateY(-2px);
   background: var(--accent);
-  color: #fff;
+  color: #000000;
   box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 

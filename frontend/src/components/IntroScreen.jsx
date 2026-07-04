@@ -94,21 +94,7 @@ const IntroScreen = ({ show }) => {
                   padding: '0 2rem'
                 }}
               >
-                <motion.h1
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(2.5rem, 9vw, 8rem)',
-                    color: '#fff',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.2rem',
-                    margin: '0 0 4rem 0',
-                    fontWeight: 900,
-                    textShadow: '0 0 30px rgba(255,255,255,0.8)',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  Om Sonani
-                </motion.h1>
+                
 
                 <div style={{ 
                   textAlign: 'left', 
