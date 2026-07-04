@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import Skills from '../components/Skills';
+import Expertise from '../components/Expertise';
 import Experience from '../components/Experience';
 import Projects from '../components/Projects';
 import Terminal from '../components/Terminal';
@@ -56,7 +56,7 @@ const Home = () => {
           <Navbar theme={theme} toggleTheme={toggleTheme} />
           <main>
             <Hero />
-            <Skills />
+            <Expertise />
             <Experience />
             <Projects />
             <Terminal />
